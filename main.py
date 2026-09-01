@@ -6,6 +6,9 @@ from torch.utils.data import DataLoader
 from PIL import Image
 from pathlib import Path
 
+import os
+os.environ["QML_DISABLE_DISK_CACHE"] = "1"
+
 print("WE BEGIN")
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 print("Using device:", device)

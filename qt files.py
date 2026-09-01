@@ -3,6 +3,10 @@ from PyQt6.QtWidgets import QApplication, QMainWindow
 from PyQt6.QtQuickWidgets import QQuickWidget
 from PyQt6.QtCore import QUrl, Qt
 
+
+import os
+os.environ["QML_DISABLE_DISK_CACHE"] = "1"
+
 class QMLWindow(QMainWindow):
     def __init__(self):
         super().__init__()
