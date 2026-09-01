@@ -11,7 +11,7 @@ class QMLWindow(QMainWindow):
 
         # Embed the QML file into a widget container
         self.quick_widget = QQuickWidget(self)
-        self.quick_widget.setSource(QUrl.fromLocalFile(r"C:\Users\kalle\Downloads\Skralde_app\Main_med_detection.qml"))
+        self.quick_widget.setSource(QUrl.fromLocalFile(r"C:\Users\kalle\OneDrive\Documents\Git repos\Git_repo13.g\Main_side.qml"))
         self.quick_widget.setResizeMode(QQuickWidget.ResizeMode.SizeRootObjectToView)
         
         self.setCentralWidget(self.quick_widget)
