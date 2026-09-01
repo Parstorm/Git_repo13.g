@@ -6,7 +6,7 @@ os.environ["QML_DISABLE_DISK_CACHE"] = "1"
 
 from PyQt6.QtWidgets import QApplication, QMainWindow
 from PyQt6.QtQuickWidgets import QQuickWidget
-from PyQt6.QtCore import QUrl
+from PyQt6.QtCore import QUrl, QFileSystemWatcher, QTimer
 
 class QMLWindow(QMainWindow):
     def __init__(self):
@@ -15,27 +15,81 @@ class QMLWindow(QMainWindow):
         self.resize(440, 956)
 
         self.quick_widget = QQuickWidget(self)
-        
-        # 1. Get exact directory of this running script
-        current_dir = os.path.dirname(os.path.abspath(__file__))
-        qml_path = os.path.join(current_dir, "Main_side.qml")
-        
-        # PRINT DIAGNOSTICS: Check terminal output to verify path & save timestamp
+        self.quick_widget.setResizeMode(QQuickWidget.ResizeMode.SizeRootObjectToView)
+
+        self.current_dir = os.path.dirname(os.path.abspath(__file__))
+        self.qml_path = os.path.join(self.current_dir, "Main_side.qml")
+        self.qml_last_mtime = None
+        self.qml_last_size = None
+
+        self.file_watcher = QFileSystemWatcher([self.qml_path])
+        self.file_watcher.fileChanged.connect(self.reload_qml)
+
+        self.reload_timer = QTimer(self)
+        self.reload_timer.setInterval(500)
+        self.reload_timer.timeout.connect(self.poll_qml_file)
+        self.reload_timer.start()
+
+        self.load_qml()
+        self.setCentralWidget(self.quick_widget)
+
+    def load_qml(self):
         print("--------------------------------------------------")
-        print("LOADING FILE FROM:", qml_path)
-        if os.path.exists(qml_path):
-            print("LAST MODIFIED SECONDS AGO:", os.path.getmtime(qml_path))
+        print("LOADING FILE FROM:", self.qml_path)
+        if os.path.exists(self.qml_path):
+            print("MODIFIED TIME:", os.path.getmtime(self.qml_path))
+            print("FILE SIZE:", os.path.getsize(self.qml_path))
         else:
             print("ERROR: File does not exist at this path!")
         print("--------------------------------------------------")
 
-        # 2. Force Qt engine to wipe all loaded QML components from memory
-        self.quick_widget.engine().clearComponentCache()
+        self.quick_widget.setSource(QUrl())
 
-        self.quick_widget.setSource(QUrl.fromLocalFile(qml_path))
-        self.quick_widget.setResizeMode(QQuickWidget.ResizeMode.SizeRootObjectToView)
-        
-        self.setCentralWidget(self.quick_widget)
+        if not os.path.exists(self.qml_path):
+            print("Main_side.qml is missing; showing blank screen.")
+            self.qml_last_mtime = None
+            self.qml_last_size = None
+            return
+
+        try:
+            with open(self.qml_path, "r", encoding="utf-8") as f:
+                content = f.read()
+        except Exception as e:
+            print("Could not read Main_side.qml:", e)
+            return
+
+        if not content.strip():
+            print("Main_side.qml is empty; showing blank screen.")
+            self.qml_last_mtime = os.path.getmtime(self.qml_path)
+            self.qml_last_size = os.path.getsize(self.qml_path)
+            return
+
+        if self.quick_widget.engine() is not None:
+            self.quick_widget.engine().clearComponentCache()
+
+        self.quick_widget.setSource(QUrl.fromLocalFile(self.qml_path))
+        self.qml_last_mtime = os.path.getmtime(self.qml_path)
+        self.qml_last_size = os.path.getsize(self.qml_path)
+
+    def reload_qml(self, path):
+        if path and os.path.abspath(path) == os.path.abspath(self.qml_path):
+            self.load_qml()
+
+    def poll_qml_file(self):
+        if not os.path.exists(self.qml_path):
+            if self.qml_last_mtime is not None or self.qml_last_size is not None:
+                self.load_qml()
+            return
+
+        try:
+            mtime = os.path.getmtime(self.qml_path)
+            size = os.path.getsize(self.qml_path)
+        except OSError:
+            self.load_qml()
+            return
+
+        if self.qml_last_mtime != mtime or self.qml_last_size != size:
+            self.load_qml()
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
