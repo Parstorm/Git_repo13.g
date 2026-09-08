@@ -40,18 +40,17 @@ Image {
         }
     }
     Rectangle {
-        id: rectangle_111141358
+    id: rectangle_111141358
 
-        x: 11
-        y: 10
+    x: 11 - 119        // -108
+    y: 10 - 119         // -109
+    width: 418 + 2 * 119   // 656
+    height: 930 + 2 * 119  // 1168
 
-        height: 930
-        width: 418
-
-        border.color: "#5c6d47"
-        border.width: 119
-        color: "transparent"
-        radius: 49
+    border.color: "#5c6d47"
+    border.width: 119
+    color: "transparent"
+    radius: 49 + 119    // 168 — keeps the corner curve consistent when the stroke sits outside
     }
     Image {
         id: subtract

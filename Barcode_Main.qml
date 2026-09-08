@@ -38,16 +38,15 @@ Rectangle {
     Rectangle {
         id: rectangle_111141358
 
-        x: 11
-        y: 10
-
-        height: 930
-        width: 418
+        x: 11 - 119
+        y: 10 - 119
+        width: 418 + 2 * 119
+        height: 930 + 2 * 119
 
         border.color: "#5c6d47"
         border.width: 119
         color: "transparent"
-        radius: 49
+        radius: 49 + 119
     }
     Item {
         id: group_4
