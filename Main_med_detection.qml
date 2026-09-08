@@ -1,5 +1,4 @@
 import QtQuick
-import QtQuick.Shapes
 
 Image {
     id: main_med_detection
@@ -38,80 +37,53 @@ Image {
         radius: 49
     }
     Image {
+        id: controlsButton
+
+        x: 24
+        y: 39
+
+        source: Qt.resolvedUrl("assets/controlsButton_2.png")
+    }
+    Image {
         id: subtract
 
         x: 34
         y: 200
 
-        source: Qt.resolvedUrl("assets/subtract_11.png")
+        source: Qt.resolvedUrl("assets/subtract_15.png")
     }
-    Item {
-        id: group_9
+    ControlsButton {
+        id: controlsButton_1
 
-        x: 343
-        y: 669
-
-        height: 41.46
-        width: 41.46
+        x: 324.96
+        y: 650.50
 
         opacity: 0.85
+    }
+    Image {
+        id: component_4
 
-        Shape {
-            id: ellipse_16
+        x: 15
+        y: 49
 
-            height: 41.46
-            width: 41.46
+        clip: true
+        source: Qt.resolvedUrl("assets/component_4.png")
 
-            ShapePath {
-                id: ellipse_16_ShapePath0
+        Component_4 {
+            id: property_1_Arrow_1_klikket
 
-                fillColor: "#00000000"
-                fillRule: ShapePath.WindingFill
-                strokeColor: "#757575"
-                strokeWidth: 3
+            x: 20
+            y: 20
 
-                PathSvg {
-                    id: ellipse_16_ShapePath0_PathSvg0
-
-                    path: "M 41.46428298950195 20.732145309448242 C 41.46428298950195 32.18219339071668 32.18218746922021 41.464290618896484 20.732141494750977 41.464290618896484 C 9.28209552028174 41.464290618896484 5.118756348254863e-7 32.18219339071668 5.118756348254863e-7 20.732145309448242 C 5.118756348254863e-7 9.282097228179806 9.28209552028174 0 20.732141494750977 0 C 32.18218746922021 0 41.46428298950195 9.282097228179806 41.46428298950195 20.732145309448242 Z"
-                }
-            }
+            property_2: Component_4.Property_1.Property_1_Arrow_1_klikket
         }
-        Item {
-            id: group_10
+        Component_4 {
+            id: property_1_Arrow_Ik_klik
 
-            x: 7.55
-            y: 7.09
+            x: 20
+            y: 20
 
-            height: 27
-            width: 27
-
-            rotation: 45
-
-            Rectangle {
-                id: rectangle_111141383
-
-                y: 12
-
-                height: 3
-                width: 27
-
-                color: "#3b3e40"
-                radius: 29
-                rotation: 90
-            }
-            Rectangle {
-                id: rectangle_111141384
-
-                y: 12
-
-                height: 3
-                width: 27
-
-                color: "#3b3e40"
-                radius: 29
-                rotation: -180
-            }
+            property_2: Component_4.Property_1.Property_1_Arrow_Ik_klik
         }
     }
 }
