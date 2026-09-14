@@ -70,28 +70,23 @@ Image {
     }
     Image {
         id: component_2
-
         x: 15
         y: 49
-
         clip: true
         source: Qt.resolvedUrl("assets/component_2.png")
 
         Component_2 {
             id: property_1_Arrow_Klikket
-
             x: 20
             y: 20
 
-            property_2: Component_2.Property_1.Property_1_Arrow_Klikket
-        }
-        Component_2 {
-            id: property_1_Arrow_Ik_klikket
+            property_2: pressed
+            ? Component_2.Property_1.Property_1_Arrow_Klikket
+            : Component_2.Property_1.Property_1_Arrow_Ik_klikket
 
-            x: 20
-            y: 20
-
-            property_2: Component_2.Property_1.Property_1_Arrow_Ik_klikket
+            onClicked: {
+                console.log("Arrow pressed")
+            }
         }
     }
     Image {
@@ -109,15 +104,13 @@ Image {
             x: 20
             y: 20
 
-            property_2: Gallery_klikket.Property_1.Property_1_Pressed
-        }
-        Gallery_klikket {
-            id: property_1_Default
+            property_2: pressed
+            ? Gallery_klikket.Property_1.Property_1_Pressed
+            : Gallery_klikket.Property_1.Property_1_Default
 
-            x: 20
-            y: 20
-
-            property_2: Gallery_klikket.Property_1.Property_1_Default
+            onClicked: {
+                console.log("Galleri icon pressed")
+            }
         }
     }
     Image {

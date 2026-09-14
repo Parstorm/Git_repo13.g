@@ -7,7 +7,7 @@ T.Button {
     id: buttonRoot
     property int property_2: Component_2.Property_1.Property_1_Arrow_Ik_klikket
 
-    height: 0
+    height: 40
     width: 38
 
     background: Rectangle {

@@ -22,7 +22,7 @@ class QMLWindow(QMainWindow):
         if not requested_qml and len(sys.argv) > 1:
             requested_qml = sys.argv[1]
         self.qml_path = os.path.abspath(os.path.join(
-            self.current_dir, requested_qml or "Homescreen.qml"
+            self.current_dir, requested_qml or "Main_side.qml"
         ))
         self.qml_last_mtime = None
         self.qml_last_size = None
