@@ -256,16 +256,11 @@ Rectangle {
             y: 20
 
             opacity: 0.85
-            property_2: R.Property_1.Property_1_Variant4
-        }
-        R {
-            id: property_1_Variant3
+            property_2: pressed
+            ? R.Property_1.Property_1_Variant4
+            : R.Property_1.Property_1_Variant3
 
-            x: 20
-            y: 20
-
-            opacity: 0.85
-            property_2: R.Property_1.Property_1_Variant3
+            onClicked: console.log("R button clicked")
         }
     }
     Image {
@@ -283,15 +278,11 @@ Rectangle {
             x: 20
             y: 20
 
-            property_2: Component_51.Property_1.Property_1_Billedgenkendelse_trykket
-        }
-        Component_51 {
-            id: property_1_Billedkengendelse_ik_tryk
+            property_2: pressed
+            ? Component_51.Property_1.Property_1_Billedgenkendelse_trykket
+            : Component_51.Property_1.Property_1_Billedkengendelse_ik_tryk
 
-            x: 20
-            y: 20
-
-            property_2: Component_51.Property_1.Property_1_Billedkengendelse_ik_tryk
+            onClicked: console.log("Image recognition button clicked")
         }
     }
     Image {

@@ -99,15 +99,11 @@ Rectangle {
             x: 20
             y: 20
 
-            property_2: Component_54.Property_1.Property_1_Group_12
-        }
-        Component_54 {
-            id: property_1_Group_13
+            property_2: pressed
+            ? Component_54.Property_1.Property_1_Group_12
+            : Component_54.Property_1.Property_1_Group_13
 
-            x: 20
-            y: 20
-
-            property_2: Component_54.Property_1.Property_1_Group_13
+            onClicked: console.log("Group 12 button clicked")
         }
     }
     Image {
@@ -126,15 +122,11 @@ Rectangle {
             y: 20
 
             opacity: 0.85
-            property_2: Component_55.Property_1.Property_1_Group_9
-        }
-        Component_55 {
-            id: property_1_Group_10
+            property_2: pressed
+            ? Component_55.Property_1.Property_1_Group_9
+            : Component_55.Property_1.Property_1_Group_10
 
-            x: 20
-            y: 20
-
-            property_2: Component_55.Property_1.Property_1_Group_10
+            onClicked: console.log("Group 9 button clicked")
         }
     }
 }

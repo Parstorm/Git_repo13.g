@@ -128,15 +128,11 @@ Image {
             x: 20
             y: 20
 
-            property_2: Component_29.Property_1.Property_1_Variant4
-        }
-        Component_29 {
-            id: property_1_Variant3
+            property_2: pressed
+            ? Component_29.Property_1.Property_1_Variant4
+            : Component_29.Property_1.Property_1_Variant3
 
-            x: 20
-            y: 20
-
-            property_2: Component_29.Property_1.Property_1_Variant3
+            onClicked: console.log("Component 29 button clicked")
         }
     }
     Image {
@@ -155,16 +151,11 @@ Image {
             y: 20
 
             opacity: 0.85
-            property_2: Component_49.Property_1.Property_1_Variant4
-        }
-        Component_49 {
-            id: property_1_Variant3_1
+            property_2: pressed
+            ? Component_49.Property_1.Property_1_Variant4
+            : Component_49.Property_1.Property_1_Variant3
 
-            x: 20
-            y: 20
-
-            opacity: 0.85
-            property_2: Component_49.Property_1.Property_1_Variant3
+            onClicked: console.log("Component 49 button clicked")
         }
     }
 }

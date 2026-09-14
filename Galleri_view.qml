@@ -92,15 +92,11 @@ Image {
             x: 20
             y: 20
 
-            property_2: Component_5.Property_1.Property_1_Arrow_ik_klikked
-        }
-        Component_5 {
-            id: property_1_Arrow_klikked
+            property_2: pressed
+            ? Component_5.Property_1.Property_1_Arrow_klikked
+            : Component_5.Property_1.Property_1_Arrow_ik_klikked
 
-            x: 20
-            y: 20
-
-            property_2: Component_5.Property_1.Property_1_Arrow_klikked
+            onClicked: console.log("Arrow button clicked")
         }
     }
     Image {
@@ -119,16 +115,11 @@ Image {
             y: 20
 
             opacity: 0.85
-            property_2: Component_6.Property_1.Property_1_Info_ik_klikked
-        }
-        Component_6 {
-            id: property_1_Info_klikked
+            property_2: pressed
+            ? Component_6.Property_1.Property_1_Info_klikked
+            : Component_6.Property_1.Property_1_Info_ik_klikked
 
-            x: 20
-            y: 20
-
-            opacity: 0.85
-            property_2: Component_6.Property_1.Property_1_Info_klikked
+            onClicked: console.log("Info button clicked")
         }
     }
     Image {
@@ -146,15 +137,11 @@ Image {
             x: 20
             y: 20
 
-            property_2: Component_7.Property_1.Property_1_Button_klikked
-        }
-        Component_7 {
-            id: property_1_Button_ik_klikked
+            property_2: pressed
+            ? Component_7.Property_1.Property_1_Button_klikked
+            : Component_7.Property_1.Property_1_Button_ik_klikked
 
-            x: 20
-            y: 20
-
-            property_2: Component_7.Property_1.Property_1_Button_ik_klikked
+            onClicked: console.log("Button clicked")
         }
     }
     Image {
@@ -172,15 +159,11 @@ Image {
             x: 20
             y: 20
 
-            property_2: Component_50.Property_1.Property_1_Galleri_ik_Clicked
-        }
-        Component_50 {
-            id: property_1_Galleri_Clicked
+            property_2: pressed
+            ? Component_50.Property_1.Property_1_Galleri_Clicked
+            : Component_50.Property_1.Property_1_Galleri_ik_Clicked
 
-            x: 20
-            y: 20
-
-            property_2: Component_50.Property_1.Property_1_Galleri_Clicked
+            onClicked: console.log("Gallery button clicked")
         }
     }
 }

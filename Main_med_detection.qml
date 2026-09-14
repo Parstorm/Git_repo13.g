@@ -74,15 +74,11 @@ Image {
             x: 20
             y: 20
 
-            property_2: Component_4.Property_1.Property_1_Arrow_1_klikket
-        }
-        Component_4 {
-            id: property_1_Arrow_Ik_klik
+            property_2: pressed
+            ? Component_4.Property_1.Property_1_Arrow_1_klikket
+            : Component_4.Property_1.Property_1_Arrow_Ik_klik
 
-            x: 20
-            y: 20
-
-            property_2: Component_4.Property_1.Property_1_Arrow_Ik_klik
+            onClicked: console.log("Arrow button clicked")
         }
     }
 }

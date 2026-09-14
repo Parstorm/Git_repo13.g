@@ -11,6 +11,12 @@ Rectangle {
     width: 47.28
 
     color: "transparent"
+    signal clicked()
+
+    MouseArea {
+        anchors.fill: parent
+        onClicked: component_10.clicked()
+    }
 
     states: [
         State {
