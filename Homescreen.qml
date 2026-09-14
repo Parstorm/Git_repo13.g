@@ -295,29 +295,23 @@ Rectangle {
         }
     }
     Image {
-        id: stregkode_Scanner
+    id: stregkode_Scanner
+    x: 11
+    y: 412
+    clip: true
+    source: Qt.resolvedUrl("assets/stregkode_Scanner.png")
 
-        x: 11
-        y: 412
+    Stregkode_Scanner {
+        id: scanButton
+        x: 20; y: 20
 
-        clip: true
-        source: Qt.resolvedUrl("assets/stregkode_Scanner.png")
+        property_2: pressed
+            ? Stregkode_Scanner.Property_1.Property_1_Klicked
+            : Stregkode_Scanner.Property_1.Property_1_Ikke_klicked
 
-        Stregkode_Scanner {
-            id: property_1_Klicked
-
-            x: 20
-            y: 20
-
-            property_2: Stregkode_Scanner.Property_1.Property_1_Klicked
-        }
-        Stregkode_Scanner {
-            id: property_1_Ikke_klicked
-
-            x: 20
-            y: 20
-
-            property_2: Stregkode_Scanner.Property_1.Property_1_Ikke_klicked
+        onClicked: {
+            console.log("Scan button clicked")
         }
     }
+}
 }
