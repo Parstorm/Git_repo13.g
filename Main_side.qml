@@ -1,161 +1,224 @@
 import QtQuick
+import QtQuick.Controls
 import QtQuick.Shapes
+import QtMultimedia
 
-Image {
+Item {
     id: main_side
-
+    width: 440
+    height: 956
     clip: true
-    source: Qt.resolvedUrl("assets/main_side.png")
+
+    property var navigationStack: StackView.view
+
+    function goBack() {
+        if (navigationStack && navigationStack.depth > 1) {
+            navigationStack.pop()
+        }
+    }
+
+    function openGallery() {
+        if (navigationStack) {
+            navigationStack.push(Qt.resolvedUrl("Galleri_view.qml"))
+        }
+    }
+
+    function openQuestions() {
+        if (navigationStack) {
+            navigationStack.push(Qt.resolvedUrl("Sp_rgsm_l_main.qml"))
+        }
+    }
+
+    function showResult(className, confidence) {
+        if (navigationStack) {
+            navigationStack.push(Qt.resolvedUrl("Main_med_detection.qml"), {
+                detectedClass: className,
+                confidence: confidence
+            })
+        }
+    }
+
+    // Live camera replaces the static Figma placeholder image.
+    VideoOutput {
+        id: videoOutput
+        anchors.fill: parent
+        fillMode: VideoOutput.PreserveAspectCrop
+    }
+
+    // Darken the very top slightly so the existing camera controls remain readable.
+    Rectangle {
+        anchors.top: parent.top
+        anchors.left: parent.left
+        anchors.right: parent.right
+        height: 115
+        color: "#000000"
+        opacity: 0.08
+    }
+
+    // Existing generated UI stays on top of the camera feed.
+    Rectangle {
+        id: rectangle_111141358
+        x: -108
+        y: -109
+        width: 656
+        height: 1168
+        border.color: "#5c6d47"
+        border.width: 119
+        color: "transparent"
+        radius: 168
+    }
 
     Image {
         id: rectangle_111141357
-
         x: 11
         y: 811
-
         source: Qt.resolvedUrl("assets/rectangle_111141357.png")
     }
-    Shape {
-        id: ellipse_16
 
-        x: 273.77
-        y: 725.98
-
-        height: 41.46
-        width: 41.46
-
-        ShapePath {
-            id: ellipse_16_ShapePath0
-
-            fillColor: "#00000000"
-            fillRule: ShapePath.WindingFill
-            strokeColor: "#757575"
-            strokeWidth: 3
-
-            PathSvg {
-                id: ellipse_16_ShapePath0_PathSvg0
-
-                path: "M 41.46428298950195 20.732145309448242 C 41.46428298950195 32.18219339071668 32.18218746922021 41.464290618896484 20.732141494750977 41.464290618896484 C 9.28209552028174 41.464290618896484 5.118756348254863e-7 32.18219339071668 5.118756348254863e-7 20.732145309448242 C 5.118756348254863e-7 9.282097228179806 9.28209552028174 0 20.732141494750977 0 C 32.18218746922021 0 41.46428298950195 9.282097228179806 41.46428298950195 20.732145309448242 Z"
-            }
-        }
-    }
-    Rectangle {
-    id: rectangle_111141358
-
-    x: 11 - 119        // -108
-    y: 10 - 119         // -109
-    width: 418 + 2 * 119   // 656
-    height: 930 + 2 * 119  // 1168
-
-    border.color: "#5c6d47"
-    border.width: 119
-    color: "transparent"
-    radius: 49 + 119    // 168 — keeps the corner curve consistent when the stroke sits outside
-    }
     Image {
         id: subtract
-
         x: 34
         y: 200
-
         source: Qt.resolvedUrl("assets/subtract_4.png")
     }
+
     Image {
         id: controlsButton
-
         x: 24
         y: 39
-
         source: Qt.resolvedUrl("assets/controlsButton.png")
     }
+
     Image {
         id: component_2
         x: 15
         y: 49
         clip: true
         source: Qt.resolvedUrl("assets/component_2.png")
+    }
 
-        Component_2 {
-            id: property_1_Arrow_Klikket
+    Component_2 {
+        id: property_1_Arrow_Klikket
+        x: 35
+        y: 69
+        property_2: Component_2.Property_1.Property_1_Arrow_Klikket
+        onClicked: main_side.goBack()
+    }
+    Component_2 {
+        id: property_1_Arrow_Ik_klikket
+        x: 35
+        y: 69
+        property_2: Component_2.Property_1.Property_1_Arrow_Ik_klikket
+        onClicked: main_side.goBack()
+    }
+
+    // This is the existing centre shutter button from the generated design.
+    Component_29 {
+        id: component_29
+        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.verticalCenter: rectangle_111141357.verticalCenter
+        property_2: Component_29.Property_1.Property_1_Variant4
+        onClicked: controller.capturePhoto()
+    }
+
+    Image {
+        id: component_49
+        x: 306
+        y: 825
+        clip: true
+        source: Qt.resolvedUrl("assets/component_49.png")
+
+        R {
+            id: property_1_Variant4_1
             x: 20
             y: 20
-
-            property_2: pressed
-            ? Component_2.Property_1.Property_1_Arrow_Klikket
-            : Component_2.Property_1.Property_1_Arrow_Ik_klikket
-
-            onClicked: {
-                console.log("Arrow pressed")
-            }
+            opacity: 0.85
+            property_2: R.Property_1.Property_1_Variant4
+            onClicked: main_side.openQuestions()
+        }
+        R {
+            id: property_1_Variant3_1
+            x: 20
+            y: 20
+            opacity: 0.85
+            property_2: R.Property_1.Property_1_Variant3
+            onClicked: main_side.openQuestions()
         }
     }
+
     Image {
         id: gallery_klikket
-
         x: 49
         y: 830
-
         clip: true
         source: Qt.resolvedUrl("assets/gallery_klikket.png")
 
         Gallery_klikket {
             id: property_1_Pressed
-
             x: 20
             y: 20
-
-            property_2: pressed
-            ? Gallery_klikket.Property_1.Property_1_Pressed
-            : Gallery_klikket.Property_1.Property_1_Default
-
-            onClicked: {
-                console.log("Galleri icon pressed")
-            }
+            property_2: Gallery_klikket.Property_1.Property_1_Pressed
+            onClicked: main_side.openGallery()
+        }
+        Gallery_klikket {
+            id: property_1_Default
+            x: 20
+            y: 20
+            property_2: Gallery_klikket.Property_1.Property_1_Default
+            onClicked: main_side.openGallery()
         }
     }
-    Image {
-        id: component_29
 
-        x: 171
-        y: 815
+    // Small status strip is deliberately on top of the live video so camera/
+    // permission/ML errors do not disappear into the console.
+    Rectangle {
+        id: statusStrip
+        x: 16
+        y: 112
+        width: 408
+        height: 36
+        radius: 12
+        color: "#55000000"
 
-        clip: true
-        source: Qt.resolvedUrl("assets/component_29.png")
-
-        Component_29 {
-            id: property_1_Variant4
-
-            x: 20
-            y: 20
-
-            property_2: pressed
-            ? Component_29.Property_1.Property_1_Variant4
-            : Component_29.Property_1.Property_1_Variant3
-
-            onClicked: console.log("Component 29 button clicked")
+        Text {
+            anchors.fill: parent
+            anchors.leftMargin: 12
+            anchors.rightMargin: 12
+            text: main_side.statusText
+            color: "white"
+            font.pixelSize: 14
+            horizontalAlignment: Text.AlignHCenter
+            verticalAlignment: Text.AlignVCenter
+            elide: Text.ElideRight
         }
     }
-    Image {
-        id: component_49
 
-        x: 306
-        y: 825
+    property string statusText: "Camera starting…"
 
-        clip: true
-        source: Qt.resolvedUrl("assets/component_49.png")
+    Connections {
+        target: controller
 
-        Component_49 {
-            id: property_1_Variant4_1
-
-            x: 20
-            y: 20
-
-            opacity: 0.85
-            property_2: pressed
-            ? Component_49.Property_1.Property_1_Variant4
-            : Component_49.Property_1.Property_1_Variant3
-
-            onClicked: console.log("Component 49 button clicked")
+        function onStatusChanged(message) {
+            main_side.statusText = message
         }
+
+        function onErrorOccurred(message) {
+            main_side.statusText = message
+        }
+
+        function onScanResultReady(className, confidence, imagePath) {
+            main_side.showResult(className, confidence)
+        }
+    }
+
+    Component.onCompleted: {
+        controller.attachVideoOutput(videoOutput)
+        controller.startCamera()
+    }
+
+    StackView.onActivated: controller.attachVideoOutput(videoOutput)
+
+    Component.onDestruction: {
+        controller.stopCamera()
     }
 }

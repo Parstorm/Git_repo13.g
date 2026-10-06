@@ -1,10 +1,26 @@
 import QtQuick
+import QtQuick.Controls
+import QtMultimedia
 
 Image {
     id: galleri_view
 
+    property var navigationStack: StackView.view
+
+    function goBack() {
+        if (navigationStack && navigationStack.depth > 1) {
+            navigationStack.pop()
+        }
+    }
+
     clip: true
     source: Qt.resolvedUrl("assets/galleri_view.png")
+
+    VideoOutput {
+        id: cameraPreview
+        anchors.fill: parent
+        fillMode: VideoOutput.PreserveAspectCrop
+    }
 
     Image {
         id: rectangle_111141357
@@ -85,19 +101,21 @@ Image {
 
         clip: true
         source: Qt.resolvedUrl("assets/component_5.png")
+    }
 
-        Component_5 {
-            id: property_1_Arrow_ik_klikked
-
-            x: 20
-            y: 20
-
-            property_2: pressed
-            ? Component_5.Property_1.Property_1_Arrow_klikked
-            : Component_5.Property_1.Property_1_Arrow_ik_klikked
-
-            onClicked: console.log("Arrow button clicked")
-        }
+    Component_5 {
+        id: property_1_Arrow_ik_klikked
+        x: 35
+        y: 69
+        property_2: Component_5.Property_1.Property_1_Arrow_ik_klikked
+        onClicked: galleri_view.goBack()
+    }
+    Component_5 {
+        id: property_1_Arrow_klikked
+        x: 35
+        y: 69
+        property_2: Component_5.Property_1.Property_1_Arrow_klikked
+        onClicked: galleri_view.goBack()
     }
     Image {
         id: component_6
@@ -115,11 +133,16 @@ Image {
             y: 20
 
             opacity: 0.85
-            property_2: pressed
-            ? Component_6.Property_1.Property_1_Info_klikked
-            : Component_6.Property_1.Property_1_Info_ik_klikked
+            property_2: Component_6.Property_1.Property_1_Info_ik_klikked
+        }
+        Component_6 {
+            id: property_1_Info_klikked
 
-            onClicked: console.log("Info button clicked")
+            x: 20
+            y: 20
+
+            opacity: 0.85
+            property_2: Component_6.Property_1.Property_1_Info_klikked
         }
     }
     Image {
@@ -137,11 +160,15 @@ Image {
             x: 20
             y: 20
 
-            property_2: pressed
-            ? Component_7.Property_1.Property_1_Button_klikked
-            : Component_7.Property_1.Property_1_Button_ik_klikked
+            property_2: Component_7.Property_1.Property_1_Button_klikked
+        }
+        Component_7 {
+            id: property_1_Button_ik_klikked
 
-            onClicked: console.log("Button clicked")
+            x: 20
+            y: 20
+
+            property_2: Component_7.Property_1.Property_1_Button_ik_klikked
         }
     }
     Image {
@@ -159,11 +186,19 @@ Image {
             x: 20
             y: 20
 
-            property_2: pressed
-            ? Component_50.Property_1.Property_1_Galleri_Clicked
-            : Component_50.Property_1.Property_1_Galleri_ik_Clicked
+            property_2: Component_50.Property_1.Property_1_Galleri_ik_Clicked
+            onClicked: galleri_view.goBack()
+        }
+        Component_50 {
+            id: property_1_Galleri_Clicked
 
-            onClicked: console.log("Gallery button clicked")
+            x: 20
+            y: 20
+
+            property_2: Component_50.Property_1.Property_1_Galleri_Clicked
+            onClicked: galleri_view.goBack()
         }
     }
+
+    Component.onCompleted: controller.attachVideoOutput(cameraPreview)
 }

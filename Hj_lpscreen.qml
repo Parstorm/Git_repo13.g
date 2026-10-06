@@ -1,8 +1,17 @@
 import QtQuick
+import QtQuick.Controls
 import QtQuick.Shapes
 
 Rectangle {
     id: hj_lpscreen
+
+    property var navigationStack: StackView.view
+
+    function goBack() {
+        if (navigationStack && navigationStack.depth > 1) {
+            navigationStack.pop()
+        }
+    }
 
     height: 956
     width: 440
@@ -382,7 +391,8 @@ Rectangle {
         Image {
             id: efter_du_er_klikket_ind_p_denne_knap_indtaster_d
 
-            x: 33
+            x: 41
+            y: 83
 
             source: Qt.resolvedUrl("assets/efter_du_er_klikket_ind_p_denne_knap_indtaster_d.png")
         }
@@ -488,6 +498,7 @@ Rectangle {
 
             opacity: 0.85
             property_2: Component_12.Property_1.Property_1_Info_klikked
+            onClicked: hj_lpscreen.goBack()
         }
     }
     Component_12_Info_ik_klikked {

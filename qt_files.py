@@ -7,6 +7,7 @@ os.environ["QML_DISABLE_DISK_CACHE"] = "1"
 from PyQt6.QtWidgets import QApplication, QMainWindow
 from PyQt6.QtQuickWidgets import QQuickWidget
 from PyQt6.QtCore import QUrl, QFileSystemWatcher, QTimer
+from controller import Controller
 
 class QMLWindow(QMainWindow):
     def __init__(self):
@@ -22,8 +23,9 @@ class QMLWindow(QMainWindow):
         if not requested_qml and len(sys.argv) > 1:
             requested_qml = sys.argv[1]
         self.qml_path = os.path.abspath(os.path.join(
-            self.current_dir, requested_qml or "Homescreen.qml"
+            self.current_dir, requested_qml or "App.qml"
         ))
+        self.controller = Controller(self)
         self.qml_last_mtime = None
         self.qml_last_size = None
 
@@ -79,6 +81,7 @@ class QMLWindow(QMainWindow):
             return
 
         self.quick_widget.engine().clearComponentCache()
+        self.quick_widget.rootContext().setContextProperty("controller", self.controller)
 
         self.quick_widget.setSource(QUrl.fromLocalFile(self.qml_path))
         self.qml_last_mtime = os.path.getmtime(self.qml_path)
@@ -103,6 +106,10 @@ class QMLWindow(QMainWindow):
 
         if self.qml_last_mtime != mtime or self.qml_last_size != size:
             self.load_qml()
+
+    def closeEvent(self, event):
+        self.controller.close()
+        super().closeEvent(event)
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)

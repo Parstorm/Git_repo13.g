@@ -1,7 +1,22 @@
 import QtQuick
+import QtQuick.Controls
 
 Rectangle {
     id: barcode_Main
+
+    property var navigationStack: StackView.view
+
+    function goBack() {
+        if (navigationStack && navigationStack.depth > 1) {
+            navigationStack.pop()
+        }
+    }
+
+    function showDetectedPlaceholder() {
+        if (navigationStack) {
+            navigationStack.push(Qt.resolvedUrl("Barcode_Detected.qml"))
+        }
+    }
 
     height: 956
     width: 440
@@ -217,11 +232,17 @@ Rectangle {
             x: 20
             y: 20
 
-            property_2: pressed
-            ? Component_52.Property_1.Property_1_Group_11
-            : Component_52.Property_1.Property_1_Group_12
+            property_2: Component_52.Property_1.Property_1_Group_11
+            onClicked: barcode_Main.goBack()
+        }
+        Component_52 {
+            id: property_1_Group_12
 
-            onClicked: console.log("Group 11 button clicked")
+            x: 20
+            y: 20
+
+            property_2: Component_52.Property_1.Property_1_Group_12
+            onClicked: barcode_Main.goBack()
         }
     }
     Image {
@@ -239,11 +260,17 @@ Rectangle {
             x: 20
             y: 20
 
-            property_2: pressed
-            ? Component_53.Property_1.Property_1_Group_2
-            : Component_53.Property_1.Property_1_Group_6
+            property_2: Component_53.Property_1.Property_1_Group_2
+            onClicked: barcode_Main.showDetectedPlaceholder()
+        }
+        Component_53 {
+            id: property_1_Group_6
 
-            onClicked: console.log("Group 2 button clicked")
+            x: 20
+            y: 20
+
+            property_2: Component_53.Property_1.Property_1_Group_6
+            onClicked: barcode_Main.showDetectedPlaceholder()
         }
     }
 }

@@ -1,8 +1,17 @@
 import QtQuick
+import QtQuick.Controls
 import QtQuick.Shapes
 
 Rectangle {
     id: barcode_Detected
+
+    property var navigationStack: StackView.view
+
+    function goBack() {
+        if (navigationStack && navigationStack.depth > 1) {
+            navigationStack.pop()
+        }
+    }
 
     height: 956
     width: 440
@@ -99,11 +108,17 @@ Rectangle {
             x: 20
             y: 20
 
-            property_2: pressed
-            ? Component_54.Property_1.Property_1_Group_12
-            : Component_54.Property_1.Property_1_Group_13
+            property_2: Component_54.Property_1.Property_1_Group_12
+            onClicked: barcode_Detected.goBack()
+        }
+        Component_54 {
+            id: property_1_Group_13
 
-            onClicked: console.log("Group 12 button clicked")
+            x: 20
+            y: 20
+
+            property_2: Component_54.Property_1.Property_1_Group_13
+            onClicked: barcode_Detected.goBack()
         }
     }
     Image {
@@ -122,11 +137,15 @@ Rectangle {
             y: 20
 
             opacity: 0.85
-            property_2: pressed
-            ? Component_55.Property_1.Property_1_Group_9
-            : Component_55.Property_1.Property_1_Group_10
+            property_2: Component_55.Property_1.Property_1_Group_9
+        }
+        Component_55 {
+            id: property_1_Group_10
 
-            onClicked: console.log("Group 9 button clicked")
+            x: 20
+            y: 20
+
+            property_2: Component_55.Property_1.Property_1_Group_10
         }
     }
 }

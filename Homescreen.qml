@@ -1,8 +1,37 @@
 import QtQuick
+import QtQuick.Controls
 import QtQuick.Shapes
 
 Rectangle {
     id: homescreen
+
+    // StackView.view is attached to the page root. Nested Button components
+    // do not reliably resolve it, so navigation is centralized here.
+    property var navigationStack: StackView.view
+
+    function openScanner() {
+        if (navigationStack) {
+            navigationStack.push(Qt.resolvedUrl("Main_side.qml"))
+        } else {
+            console.warn("Homescreen is not hosted by a StackView")
+        }
+    }
+
+    function openBarcodeScanner() {
+        if (navigationStack) {
+            navigationStack.push(Qt.resolvedUrl("Barcode_Main.qml"))
+        } else {
+            console.warn("Homescreen is not hosted by a StackView")
+        }
+    }
+
+    function openHelp() {
+        if (navigationStack) {
+            navigationStack.push(Qt.resolvedUrl("Hj_lpscreen.qml"))
+        } else {
+            console.warn("Homescreen is not hosted by a StackView")
+        }
+    }
 
     height: 956
     width: 440
@@ -256,11 +285,18 @@ Rectangle {
             y: 20
 
             opacity: 0.85
-            property_2: pressed
-            ? R.Property_1.Property_1_Variant4
-            : R.Property_1.Property_1_Variant3
+            property_2: R.Property_1.Property_1_Variant4
+            onClicked: homescreen.openHelp()
+        }
+        R {
+            id: property_1_Variant3
 
-            onClicked: console.log("R button clicked")
+            x: 20
+            y: 20
+
+            opacity: 0.85
+            property_2: R.Property_1.Property_1_Variant3
+            onClicked: homescreen.openHelp()
         }
     }
     Image {
@@ -278,31 +314,45 @@ Rectangle {
             x: 20
             y: 20
 
-            property_2: pressed
-            ? Component_51.Property_1.Property_1_Billedgenkendelse_trykket
-            : Component_51.Property_1.Property_1_Billedkengendelse_ik_tryk
+            property_2: Component_51.Property_1.Property_1_Billedgenkendelse_trykket
+            onClicked: homescreen.openScanner()
+        }
+        Component_51 {
+            id: property_1_Billedkengendelse_ik_tryk
 
-            onClicked: console.log("Image recognition button clicked")
+            x: 20
+            y: 20
+
+            property_2: Component_51.Property_1.Property_1_Billedkengendelse_ik_tryk
+            onClicked: homescreen.openScanner()
         }
     }
     Image {
-    id: stregkode_Scanner
-    x: 11
-    y: 412
-    clip: true
-    source: Qt.resolvedUrl("assets/stregkode_Scanner.png")
+        id: stregkode_Scanner
 
-    Stregkode_Scanner {
-        id: scanButton
-        x: 20; y: 20
+        x: 11
+        y: 412
 
-        property_2: pressed
-            ? Stregkode_Scanner.Property_1.Property_1_Klicked
-            : Stregkode_Scanner.Property_1.Property_1_Ikke_klicked
+        clip: true
+        source: Qt.resolvedUrl("assets/stregkode_Scanner.png")
 
-        onClicked: {
-            console.log("Scan button clicked")
+        Stregkode_Scanner {
+            id: property_1_Klicked
+
+            x: 20
+            y: 20
+
+            property_2: Stregkode_Scanner.Property_1.Property_1_Klicked
+            onClicked: homescreen.openBarcodeScanner()
+        }
+        Stregkode_Scanner {
+            id: property_1_Ikke_klicked
+
+            x: 20
+            y: 20
+
+            property_2: Stregkode_Scanner.Property_1.Property_1_Ikke_klicked
+            onClicked: homescreen.openBarcodeScanner()
         }
     }
-}
 }

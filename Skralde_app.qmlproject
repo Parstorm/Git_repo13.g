@@ -5,9 +5,10 @@ import QmlProject
 Project {
     qt6Project: true
     importPaths: [ "." ]
-    mainFile: "Homescreen.qml"
+    mainFile: "App.qml"
     QmlFiles {
         files: [
+            "App.qml",
             "Barcode_Detected.qml",
             "Barcode_Main.qml",
             "Checkout.qml",

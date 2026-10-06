@@ -232,11 +232,16 @@ Image {
             y: 20
 
             opacity: 0.85
-            property_2: pressed
-            ? Component_8.Property_1.Property_1_Close_klikked
-            : Component_8.Property_1.Property_1_Close_ik_klikked
+            property_2: Component_8.Property_1.Property_1_Close_ik_klikked
+        }
+        Component_8 {
+            id: property_1_Close_klikked
 
-            onClicked: console.log("Close button clicked")
+            x: 20
+            y: 20
+
+            opacity: 0.85
+            property_2: Component_8.Property_1.Property_1_Close_klikked
         }
     }
     Image {
@@ -254,11 +259,15 @@ Image {
             x: 20
             y: 20
 
-            property_2: pressed
-            ? Component_9.Property_1.Property_1_Button_klikked
-            : Component_9.Property_1.Property_1_Button_ik_klikked
+            property_2: Component_9.Property_1.Property_1_Button_ik_klikked
+        }
+        Component_9 {
+            id: property_1_Button_klikked
 
-            onClicked: console.log("Button clicked")
+            x: 20
+            y: 20
+
+            property_2: Component_9.Property_1.Property_1_Button_klikked
         }
     }
     Image {
@@ -276,11 +285,15 @@ Image {
             x: 20
             y: 20
 
-            property_2: pressed
-            ? Component_10.Property_1.Property_1_Gallery_klikked
-            : Component_10.Property_1.Property_1_Gallery_ik_klikked
+            property_2: Component_10.Property_1.Property_1_Gallery_ik_klikked
+        }
+        Component_10 {
+            id: property_1_Gallery_klikked
 
-            onClicked: console.log("Gallery button clicked")
+            x: 20
+            y: 20
+
+            property_2: Component_10.Property_1.Property_1_Gallery_klikked
         }
     }
 }

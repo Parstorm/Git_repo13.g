@@ -1,7 +1,19 @@
 import QtQuick
+import QtQuick.Controls
 
 Image {
     id: main_med_detection
+
+    property var navigationStack: StackView.view
+
+    function goBack() {
+        if (navigationStack && navigationStack.depth > 1) {
+            navigationStack.pop()
+        }
+    }
+
+    property string detectedClass: ""
+    property real confidence: 0
 
     clip: true
     source: Qt.resolvedUrl("assets/main_med_detection.png")
@@ -23,18 +35,18 @@ Image {
         source: Qt.resolvedUrl("assets/pLAST_rgb_72dpi_1.png")
     }
     Rectangle {
-    id: rectangle_111141358
+        id: rectangle_111141358
 
-    x: 11 - 119        // -108
-    y: 10 - 119         // -109
-    width: 418 + 2 * 119   // 656
-    height: 930 + 2 * 119  // 1168
+        x: 11 - 119
+        y: 10 - 119
+        width: 418 + 2 * 119
+        height: 930 + 2 * 119
 
-    border.color: "#5c6d47"
-    border.width: 119
-    color: "transparent"
-    radius: 49 + 119    // 168 — keeps the corner curve consistent when the stroke sits outside
-}
+        border.color: "#5c6d47"
+        border.width: 119
+        color: "transparent"
+        radius: 49 + 119
+    }
     Image {
         id: controlsButton
 
@@ -59,6 +71,41 @@ Image {
 
         opacity: 0.85
     }
+    Rectangle {
+        id: resultCard
+
+        x: 28
+        y: 520
+        width: 384
+        height: 112
+        radius: 22
+        color: "#E633332B"
+
+        Text {
+            anchors.horizontalCenter: parent.horizontalCenter
+            y: 12
+            width: parent.width - 32
+            text: main_med_detection.detectedClass || "Resultat"
+            color: "#EBEBEB"
+            font.family: "Inter"
+            font.pixelSize: 28
+            font.bold: true
+            horizontalAlignment: Text.AlignHCenter
+            elide: Text.ElideRight
+        }
+
+        Text {
+            anchors.horizontalCenter: parent.horizontalCenter
+            y: 57
+            text: main_med_detection.detectedClass
+                  ? qsTr("Sikkerhed: %1 %").arg(main_med_detection.confidence.toFixed(1))
+                  : ""
+            color: "#EBEBEB"
+            font.pixelSize: 18
+            horizontalAlignment: Text.AlignHCenter
+        }
+    }
+
     Image {
         id: component_4
 
@@ -67,18 +114,20 @@ Image {
 
         clip: true
         source: Qt.resolvedUrl("assets/component_4.png")
+    }
 
-        Component_4 {
-            id: property_1_Arrow_1_klikket
-
-            x: 20
-            y: 20
-
-            property_2: pressed
-            ? Component_4.Property_1.Property_1_Arrow_1_klikket
-            : Component_4.Property_1.Property_1_Arrow_Ik_klik
-
-            onClicked: console.log("Arrow button clicked")
-        }
+    Component_4 {
+        id: property_1_Arrow_1_klikket
+        x: 35
+        y: 69
+        property_2: Component_4.Property_1.Property_1_Arrow_1_klikket
+        onClicked: main_med_detection.goBack()
+    }
+    Component_4 {
+        id: property_1_Arrow_Ik_klik
+        x: 35
+        y: 69
+        property_2: Component_4.Property_1.Property_1_Arrow_Ik_klik
+        onClicked: main_med_detection.goBack()
     }
 }

@@ -67,11 +67,11 @@ T.Button {
         Rectangle {
             id: rectangle_111141403
     
-            x: 56
+            x: 40
             y: 73
     
             height: 61
-            width: 272
+            width: 310
     
             border.color: "#ffffff"
             border.width: 3
